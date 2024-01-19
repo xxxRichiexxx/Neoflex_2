@@ -11,7 +11,7 @@ CREATE TABLE dm.dm_account_turnover_f (
 );
 
 
-
+DROP FUNCTION IF EXISTS ACCOUNT_TURNOVER_F (date_from date, date_to date);
 CREATE FUNCTION ACCOUNT_TURNOVER_F (date_from date, date_to date) 
 RETURNS table(
 	oper_date date,
@@ -80,7 +80,8 @@ SELECT * FROM ACCOUNT_TURNOVER_F('2018-01-01', '2018-01-31');
 
 DROP TABLE IF EXISTS dm.dm_f101_round_f;
 CREATE TABLE dm.dm_f101_round_f (
-	on_date date NOT NULL,
+	"date_from" date,
+	"date_to" date,
 	plan char(1) NOT NULL,
 	num_sc int NOT NULL,
 	a_p int4 NOT NULL,
@@ -99,10 +100,11 @@ CREATE TABLE dm.dm_f101_round_f (
 );
 
 
-
+DROP FUNCTION IF EXISTS F101_ROUND_F(date_from date, date_to date);
 CREATE FUNCTION F101_ROUND_F(date_from date, date_to date)
 RETURNS TABLE (
-	on_date date,
+	"date_from" date,
+	"date_to" date,
 	plan char(1),
 	num_sc int,
 	a_p int4,
@@ -121,7 +123,8 @@ RETURNS TABLE (
 ) AS 
 $$
 	SELECT
-		b.on_date
+		date_from
+		,date_to
 		,l.chapter																		AS PLAN 
 		,l.ledger_account																AS NUM_SC 
 		,CASE WHEN a.char_type = 'A' THEN 1 ELSE 2 END									AS A_P
@@ -220,8 +223,7 @@ $$
 		AND b.on_date = t.oper_date
 	WHERE b.on_date BETWEEN date_from AND date_to
 	GROUP BY
-		b.on_date
-		,l.chapter																	
+		l.chapter																	
 		,l.ledger_account																
 		,CASE WHEN a.char_type = 'A' THEN 1 ELSE 2 END
 $$
