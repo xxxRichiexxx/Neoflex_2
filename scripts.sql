@@ -80,8 +80,8 @@ SELECT * FROM ACCOUNT_TURNOVER_F('2018-01-01', '2018-01-31');
 
 DROP TABLE IF EXISTS dm.dm_f101_round_f;
 CREATE TABLE dm.dm_f101_round_f (
-	"date_from" date,
-	"date_to" date,
+	"date_from" date NOT NULL,
+	"date_to" date NOT NULL,
 	plan char(1) NOT NULL,
 	num_sc int NOT NULL,
 	a_p int4 NOT NULL,
