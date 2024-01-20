@@ -4,3 +4,5 @@
 
 Для выполнения задачи вам необходимо разработать таблицу оборотов
 «DM.DM_ACCOUNT_TURNOVER_F» и таблицу 101-й отчётной формы «DM.DM_F101_ROUND_F»(см. Задача 1.2.pdf)
+
+[Видео](https://disk.yandex.ru/i/tA5rbjoZK1aedw)
